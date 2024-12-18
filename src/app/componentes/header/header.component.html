@@ -4,6 +4,40 @@
     </a>
 
     <div class="navbar-collapse collapse">
-        
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                    data-bs-toggle="dropdown">
+                    <i class="fas fa-long-arrow-alt-down align-middle"></i>
+                </a>
+                <a class="nav-link d-none d-sm-inline-block">
+                    {{getFechaActual()}}
+                </a>
+                <span class="m-2">|</span>
+                <a class="nav-link d-none d-sm-inline-block">
+                    Hora
+                </a>
+                <span class="m-2">|</span>
+                <a class="nav-link d-none d-sm-inline-block">
+                    Perfil
+                </a>
+                <span class="m-2">|</span>
+                <a class="nav-link d-none d-sm-inline-block d-flex align-items-center" href="#"
+                    data-bs-toggle="dropdown"
+                >
+                    <span class="text-dark">
+                        Nombre
+                    </span>
+                    <img src="/assets/img/perfil.png" class="avatar img-fluid rounded me-1" 
+                        style = "width:24px; height:24px" alt="usuario"/>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" title="Cerrar sesión">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Cerrar sesión
+                    </a>
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>
