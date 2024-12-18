@@ -1,0 +1,10 @@
+/* Estilos para el enlace activo */
+.active-link a {
+    transition: background-color 0.9s ease, box-shadow 0.9s ease, transform 0.3s ease; /* Transición para los cambios */
+    background-color: red; /* Fondo rojo cuando está activo */
+    color: white; /* Texto blanco para mejor contraste */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Sombra para dar profundidad */
+    border-radius: 4px; /* Bordes redondeados */
+    transform: translateX(3px); /* Desplazamiento al hacer clic */
+    border: 1px solid black; /* Bordes negros y finos */
+}
