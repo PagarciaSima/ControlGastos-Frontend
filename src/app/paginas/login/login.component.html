@@ -19,26 +19,26 @@
                                         class="img-fluid rounded-circle" width="132" height="132"
                                     >
                                 </div>
-                                <form method="post" name="form" id="form">
+                                <form method="post" name="form" id="form" (ngSubmit)="enviar()" #formulario="ngForm">
                                     <div class="mb-3">
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" class="form-control form-control-lg" id="email" name="email"
-                                            placeholder="Ingresa tu e-mail"
+                                            placeholder="Ingresa tu e-mail"  [(ngModel)]="usuario.correo" #correo="ngModel"
                                         >
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <input type="password" class="form-control form-control-lg" id="password" name="password"
-                                            placeholder="Ingresa tu password"
+                                            placeholder="Ingresa tu password" [(ngModel)]="usuario.password" #password="ngModel"
                                         >
                                     </div>
 
                                     <div class="text-center mt-3">
                                         <button type="submit" class="btn btn-lg btn-primary shadow" title="entrar"
-                                            id="botonEntrar"
+                                            id="botonEntrar" [disabled]="!formulario.form.valid"
                                         >
-                                            <i class="fas fa-lock-open"></i>Sign in
+                                            <i class="fas fa-lock-open me-2"></i>Sign in
                                         </button>
                                     </div>
                                 </form>
