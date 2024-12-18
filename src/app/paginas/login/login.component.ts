@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import swal from 'sweetalert2';
+import swal from 'sweetalert2'; // npm i sweetalert2
 import { LoginRequestDto } from '../../interface/login-request-dto';
+import { TokenService } from '../../servicios/token.service';
+import { CookieService } from 'ngx-cookie-service'; // npm i ngx-cookie-service
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginComponent {
     password: ""
   };
 
-  constructor() {}
+  constructor(private tokenService: TokenService) {}
 
   private mostrarError(mensaje: string) {
     swal.fire({
@@ -43,15 +45,26 @@ export class LoginComponent {
       return false;
     }
 
-    if (this.usuario.password.length < 8) {
-      this.mostrarError('La contraseña debe tener al menos  caracteres');
+    if (this.usuario.password.length < 6) {
+      this.mostrarError('La contraseña debe tener al menos 6 caracteres');
       return false;
     }
     return true;
   }
 
   enviar() {
-    return this.validaUsuario(this.usuario);
-
+    if (this.validaUsuario(this.usuario)) {
+      this.tokenService.getToken(this.usuario).subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+        error: (err) => {
+          this.mostrarError('Las credenciales no son válidas');
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 2500);
+        }
+      });
+    }
   }
 }
