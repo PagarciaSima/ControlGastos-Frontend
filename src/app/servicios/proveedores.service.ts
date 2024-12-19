@@ -12,12 +12,8 @@ export class ProveedoresService {
   constructor(private httclient: HttpClient) { }
 
   getProveedores(token:string): Observable<ProveedorDto[]> {  
-    const headers = new HttpHeaders(
-      {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
-      }
-    );
-    return this.httclient.get<ProveedorDto[]>(`${environment.api}/v1/proveedores`, { headers });
+
+    return this.httclient.get<ProveedorDto[]>(`http://localhost:8081/api/v1/proveedores`, { 'headers': {'content-type':
+       'application/json', 'Authorization': `Bearer ${token}`} });
   }
 }

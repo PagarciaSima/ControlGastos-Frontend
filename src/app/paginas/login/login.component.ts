@@ -6,6 +6,7 @@ import { TokenService } from '../../servicios/token.service';
 import { CookieService } from 'ngx-cookie-service'; // npm i ngx-cookie-service
 import { LoginResponseDto } from '../../interface/login-response-dto';
 import { Router } from '@angular/router';
+import { ComunService } from '../../servicios/comun.service';
 
 @Component({
   selector: 'app-login',
@@ -23,36 +24,28 @@ export class LoginComponent {
   constructor(
     private tokenService: TokenService,
     private cookieService: CookieService,
+    private comunService: ComunService,
     private router: Router
   ) { }
 
-  private mostrarError(mensaje: string) {
-    swal.fire({
-      icon: 'error',
-      timer: 2000,
-      title: 'Error',
-      text: mensaje
-    });
-  }
-
   validaUsuario(usuario: LoginRequestDto): boolean {
     if (!this.usuario.correo) {
-      this.mostrarError('El campo E-mail es obligatorio');
+      this.comunService.mostrarError('El campo E-mail es obligatorio');
       return false;
     }
 
     if (!this.usuario.correo || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.usuario.correo)) {
-      this.mostrarError('Por favor ingresa un correo electrónico válido');
+      this.comunService.mostrarError('Por favor ingresa un correo electrónico válido');
       return false;
     }
 
     if (!this.usuario.password) {
-      this.mostrarError('El campo Password es obligatorio');
+      this.comunService.mostrarError('El campo Password es obligatorio');
       return false;
     }
 
     if (this.usuario.password.length < 6) {
-      this.mostrarError('La contraseña debe tener al menos 6 caracteres');
+      this.comunService.mostrarError('La contraseña debe tener al menos 6 caracteres');
       return false;
     }
     return true;
@@ -74,7 +67,7 @@ export class LoginComponent {
           this.router.navigate(['/']);
         },
         error: (err) => {
-          this.mostrarError('Las credenciales no son válidas');
+          this.comunService.mostrarError('Las credenciales no son válidas');
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 2500);
