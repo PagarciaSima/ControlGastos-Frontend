@@ -18,7 +18,7 @@
                     <div class="col-12 col-lg-12 d-flex">
                         <div class="card flex-fill">
                             <div class="card-header">
-                                <a class="btn btn-outline-primary float-end" title="crear" (click)="modalCrearEditar()">
+                                <a class="btn btn-outline-primary float-end" title="crear" (click)="modalCrear()">
                                     <i class="fas fa-check me-2"></i>Crear
                                 </a>
                             </div>
@@ -68,6 +68,32 @@
                 (click)="cerrar()" title="cerrar"
             >
             </button>
+        </div>
+        <div class="modal-body">
+            <form name="form" id="form" (submit)="enviar()" #formulario="ngForm">
+                <div class="mb-3">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" [(ngModel)]="modeloFormProveedor.nombre" 
+                        #nombre="ngModel" required="true" placeholder="Introduzca su nombre"
+                    >
+                    @if(nombre.invalid && (nombre.dirty || nombre.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo nombre es obligatorio
+                        </div>
+                    }
+                </div>
+                <div class="mb-3 text-end">
+                    @if(modalTitle=="Crear") {
+                        <button type="submit" class="btn btn-primary" [disabled]="!formulario.form.valid">
+                            <i class="fas fa-arrow-up me-2"></i>Crear
+                        </button>
+                    }@else if (modalTitle == "Editar") {
+                        <button type="submit" class="btn btn-warning" [disabled]="!formulario.form.valid">
+                            <i class="fas fa-pencil me-2"></i>Editar
+                        </button>
+                    }
+                </div>
+            </form>
         </div>
     </div>
  </ng-template>

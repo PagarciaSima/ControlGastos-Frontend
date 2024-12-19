@@ -16,4 +16,13 @@ export class ComunService {
       text: mensaje
     });
   }
+
+  mostrarExito(mensaje: string) {
+    swal.fire({
+      icon: 'success',
+      timer: 2000,
+      title: 'OK',
+      text: mensaje
+    });
+  }
 }

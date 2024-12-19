@@ -9,11 +9,22 @@ import { environment } from '../../environments/environment.development';
 })
 export class ProveedoresService {
 
-  constructor(private httclient: HttpClient) { }
+  constructor(private _httclient: HttpClient) { }
 
-  getProveedores(token:string): Observable<ProveedorDto[]> {  
+  private getHeaders(token: string): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
-    return this.httclient.get<ProveedorDto[]>(`http://localhost:8081/api/v1/proveedores`, { 'headers': {'content-type':
-       'application/json', 'Authorization': `Bearer ${token}`} });
+  getProveedores(token: string): Observable<ProveedorDto[]> {
+    const headers = this.getHeaders(token);
+    return this._httclient.get<ProveedorDto[]>(`http://localhost:8081/api/v1/proveedores`, { headers });
+  }
+
+  addProveedor(proveedor: {nombre: string}, token: string): Observable<ProveedorDto> {
+    const headers = this.getHeaders(token);
+    return this._httclient.post<ProveedorDto>(`${environment.api}/v1/proveedores`, proveedor, { headers });
   }
 }

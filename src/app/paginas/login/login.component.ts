@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import swal from 'sweetalert2'; // npm i sweetalert2
 import { LoginRequestDto } from '../../interface/login-request-dto';
 import { TokenService } from '../../servicios/token.service';
 import { CookieService } from 'ngx-cookie-service'; // npm i ngx-cookie-service
