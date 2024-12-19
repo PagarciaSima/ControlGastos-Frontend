@@ -8,17 +8,20 @@
         </a>
 
         <ul class="sidebar-nav">
-            <li class="sidebar-header">
-                Administración
-            </li>
-
-            <li class="sidebar-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
-            >
-                <a class="sidebar-link" routerLink="/usuarios">
-                    <i class="align-middle fas fa-users"></i> 
-                    <span class="align-middle">Usuarios</span>
-                </a>
-            </li>
+            @if(perfil_id == '1') {
+                <li class="sidebar-header">
+                    Administración
+                </li>
+    
+                <li class="sidebar-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+                >
+                    <a class="sidebar-link" routerLink="/usuarios">
+                        <i class="align-middle fas fa-users"></i> 
+                        <span class="align-middle">Usuarios</span>
+                    </a>
+                </li>
+            }
+            
 
             <li class="sidebar-header">
                 Gastos

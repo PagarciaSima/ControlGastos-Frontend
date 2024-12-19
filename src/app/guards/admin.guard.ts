@@ -3,28 +3,26 @@ import { CanActivateFn, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import swal from 'sweetalert2'; // npm i sweetalert2
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const adminGuard: CanActivateFn = (route, state) => {
   const cookieService = inject(CookieService);  // Inyectar el CookieService
   const router = inject(Router);  // Inyectar el Router
 
-  const token = cookieService.get('control_gastos_token');  
+  const perfil_id = cookieService.get('control_gastos_perfil_id');  
 
-  if (!token) {
-    // Si no hay token, muestra la alerta y redirige al login
-    swal.fire({
+  if (perfil_id !== '1') {
+    // Si el perfil no es admin, muestra la alerta y redirige
+    return swal.fire({
       icon: 'error',
       title: 'Acceso denegado',
-      text: 'Por favor, inicie sesión para acceder a esta página.',
-      timer: 3000
+      text: 'No dispone del Rol de administrador y no tiene permisos para acceder a la página',
+      timer: 3500
     }).then(() => {
       // Redirige al login después de mostrar la alerta
-      router.navigate(['/login']);
+      router.navigate(['/']);
+      return false;  // Bloquea el acceso
     });
-
-    // Bloquea el acceso a la ruta
-    return false;
   }
 
-  // Si existe el token, permite acceder a la ruta
+  // Si el perfil es correcto, permite acceder a la ruta
   return true;
 };
