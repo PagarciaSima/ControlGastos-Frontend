@@ -4,6 +4,8 @@ import swal from 'sweetalert2'; // npm i sweetalert2
 import { LoginRequestDto } from '../../interface/login-request-dto';
 import { TokenService } from '../../servicios/token.service';
 import { CookieService } from 'ngx-cookie-service'; // npm i ngx-cookie-service
+import { LoginResponseDto } from '../../interface/login-response-dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,11 @@ export class LoginComponent {
     password: ""
   };
 
-  constructor(private tokenService: TokenService) {}
+  constructor(
+    private tokenService: TokenService,
+    private cookieService: CookieService,
+    private router: Router
+  ) { }
 
   private mostrarError(mensaje: string) {
     swal.fire({
@@ -52,19 +58,29 @@ export class LoginComponent {
     return true;
   }
 
+  setCookies(data: LoginResponseDto) {
+    this.cookieService.set('control_gastos_token', data.token, 1);
+    this.cookieService.set('control_gastos_nombre', data.nombre, 1);
+    this.cookieService.set('control_gastos_id', data.id.toString(), 1);
+    this.cookieService.set('control_gastos_perfil', data.perfil, 1);
+    this.cookieService.set('control_gastos_perfil_id', data.perfilId.toString(), 1);
+  }
+
   enviar() {
     if (this.validaUsuario(this.usuario)) {
       this.tokenService.getToken(this.usuario).subscribe({
         next: (data) => {
-          console.log(data);
+          this.setCookies(data);
+          this.router.navigate(['/']);
         },
         error: (err) => {
           this.mostrarError('Las credenciales no son válidas');
           setTimeout(() => {
-            window.location.href = "/login";
+            this.router.navigate(['/login']);
           }, 2500);
         }
       });
     }
-  }
+  };
+
 }
