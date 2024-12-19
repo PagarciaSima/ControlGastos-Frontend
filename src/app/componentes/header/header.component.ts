@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
 import "dayjs/locale/es"
+import { AuthService } from '../../servicios/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +14,17 @@ import "dayjs/locale/es"
 export class HeaderComponent implements OnInit{
 
   hora!: Date;
+  nombre: string = "";
+  perfil: string = "";
+
+  constructor(private authService: AuthService) {
+    
+  }
 
   ngOnInit(): void {
     this.getHoraActual();
+    this.nombre = this.authService.getNombre();
+    this.perfil = this.authService.getPerfil();
   }
 
   getFechaActual() {
