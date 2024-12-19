@@ -6,15 +6,16 @@ import { ProveedoresComponent } from './paginas/proveedores/proveedores.componen
 import { GastosFijosComponent } from './paginas/gastos-fijos/gastos-fijos.component';
 import { GastosPorDiaComponent } from './paginas/gastos-por-dia/gastos-por-dia.component';
 import { Error404Component } from './paginas/error404/error404.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
 
-    { path: "", component: HomeComponent },
+    { path: "", component: HomeComponent, canActivate: [authGuard], },
     { path: "login", component: LoginComponent },
-    { path: "usuarios", component: UsuariosComponent },
-    { path: "proveedores", component: ProveedoresComponent },
-    { path: "gastos-fijos", component: GastosFijosComponent },
-    { path: "gastos-por-dia", component: GastosPorDiaComponent },
-    { path: "**", component: Error404Component }
+    { path: "usuarios", component: UsuariosComponent, canActivate: [authGuard], },
+    { path: "proveedores", component: ProveedoresComponent, canActivate: [authGuard], },
+    { path: "gastos-fijos", component: GastosFijosComponent, canActivate: [authGuard], },
+    { path: "gastos-por-dia", component: GastosPorDiaComponent, canActivate: [authGuard], },
+    { path: "**", component: Error404Component}
 
 ];
