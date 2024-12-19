@@ -39,4 +39,8 @@ export class HeaderComponent implements OnInit{
       this.hora = new Date();
     }, 1000)
   }
+
+  cerrarSesion() {
+    this.authService.cerrarSesion();
+  }
 }
