@@ -13,12 +13,12 @@
                         <li class="breadcrumb-item active" aria-current="page">proveedores</li>
                     </ol>
                 </nav>
-                <h1 class="h3 mb-3 mt-5"><i class="fas fa-truck-moving me-2"></i>Proveedores</h1>
+                <h3 class="h3 mb-3 mt-5 text-center"><i class="fas fa-truck-moving me-2"></i>Proveedores</h3>
                 <div class="row">
                     <div class="col-12 col-lg-12 d-flex">
                         <div class="card flex-fill">
                             <div class="card-header">
-                                <a class="btn btn-outline-primary float-end" title="crear">
+                                <a class="btn btn-outline-primary float-end" title="crear" (click)="modalCrearEditar()">
                                     <i class="fas fa-check me-2"></i>Crear
                                 </a>
                             </div>
@@ -58,3 +58,16 @@
         <app-footer></app-footer>
     </div>
 </div>
+
+<!-- modal -->
+ <ng-template #myModalConf>
+    <div class="modal-content" style="background-color: #fff;">
+        <div class="modal-header mb-3">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"
+                (click)="cerrar()" title="cerrar"
+            >
+            </button>
+        </div>
+    </div>
+ </ng-template>
