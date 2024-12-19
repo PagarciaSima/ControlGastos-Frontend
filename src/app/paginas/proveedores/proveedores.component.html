@@ -32,6 +32,20 @@
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                            @for( proveedor of proveedores; track proveedor.id ) {
+                                                <tr>
+                                                    <td>{{proveedor.id}}</td>
+                                                    <td>{{proveedor.nombre}}</td>
+                                                    <td class="text-center">
+                                                        <a class="text-success">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                          
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
