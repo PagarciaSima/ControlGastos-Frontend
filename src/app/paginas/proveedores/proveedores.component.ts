@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MenuComponent } from '../../componentes/menu/menu.component';
 import { HeaderComponent } from '../../componentes/header/header.component';
 import { FooterComponent } from '../../componentes/footer/footer.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ProveedorDto } from '../../interface/proveedor-dto';
 import { ProveedoresService } from '../../servicios/proveedores.service';
 import { AuthService } from '../../servicios/auth.service';
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-proveedores',
   standalone: true,
-  imports: [MenuComponent, HeaderComponent, FooterComponent, FormsModule],
+  imports: [MenuComponent, HeaderComponent, FooterComponent, FormsModule, RouterModule],
   templateUrl: './proveedores.component.html',
   styleUrl: './proveedores.component.css'
 })

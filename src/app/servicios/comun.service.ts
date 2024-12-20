@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import swal, { SweetAlertResult } from 'sweetalert2'; // npm i sweetalert2
 
@@ -8,6 +9,13 @@ export class ComunService {
 
   constructor() { }
 
+  getHeaders(token: string): HttpHeaders {
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
+  }
+  
   mostrarError(mensaje: string): Promise<SweetAlertResult<any>> {
     return swal.fire({
       icon: 'error',
