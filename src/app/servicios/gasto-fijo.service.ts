@@ -17,21 +17,21 @@ export class GastoFijoService {
 
   getGastosFijos(token: string): Observable<GastoFijoDto[]> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.get<GastoFijoDto[]>(`${environment.api}/gastos-fijos`, { headers });
+    return this._http.get<GastoFijoDto[]>(`${environment.api}/v1/gastos-fijos`, { headers });
   }
 
   addGastoFijo(gasto:GastoFijoDto, token: string): Observable<string> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.post<string>(`${environment.api}/gastos-fijos`, gasto, { headers });
+    return this._http.post<string>(`${environment.api}/v1/gastos-fijos`, gasto, { headers });
   }
 
  editGastoFijo(gasto:GastoFijoDto, token: string, id:number): Observable<string> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.put<string>(`${environment.api}/gastos-fijos/${id}`, gasto, { headers });
+    return this._http.put<string>(`${environment.api}/v1/gastos-fijos/${id}`, gasto, { headers });
   }
 
   deleteGastoFijo(token: string, id: number): Observable<string> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.delete<string>(`${environment.api}/gastos-fijos/${id}`, { headers });
+    return this._http.delete<string>(`${environment.api}/v1/gastos-fijos/${id}`, { headers });
   }
 }

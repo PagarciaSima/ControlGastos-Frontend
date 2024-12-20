@@ -29,7 +29,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped table-hover">
-                                        <thead>
+                                        <thead class="table-success">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Estado</th>
@@ -41,6 +41,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @for(gasto of gastosFijos; track gasto.id) {
+                                                <tr>
+                                                    <td>{{gasto.id}}</td>
+                                                    <td>{{gasto.estadosId.nombre}}</td>
+                                                    <td>{{gasto.nombre}}</td>
+                                                    <td>{{gasto.monto}}</td>
+                                                    <td>{{gasto.proveedoresId.nombre}}</td>
+                                                    <td>{{gasto.fecha}}</td>
+                                                    <td class="text-center">
+                                                        <a (click)="modalEditar(gasto)" class="text-success me-2" title="editar">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a (click)="eliminar(gasto.id!)" class="text-danger" title="editar">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
                           
                                         </tbody>
                                     </table>
