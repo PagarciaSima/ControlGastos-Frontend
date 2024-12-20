@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { ComunService } from './comun.service';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { UsuarioModel } from '../interface/usuario-model';
 import { UsuarioDto } from '../interface/usuario-dto';
 
 @Injectable({
@@ -16,9 +15,9 @@ export class UsuarioService {
     private _comunService: ComunService
   ) { }
 
-  getUsuarios(token: string): Observable<UsuarioModel[]> {
+  getUsuarios(token: string): Observable<UsuarioDto[]> {
     const headers = this._comunService.getHeaders(token);
-    return this._httpClient.get<UsuarioModel[]>(`${environment.api}/v1/usuarios`, { headers });
+    return this._httpClient.get<UsuarioDto[]>(`${environment.api}/v1/usuarios`, { headers });
   }
 
   addUsuario(usuario: UsuarioDto, token: string): Observable<string> {

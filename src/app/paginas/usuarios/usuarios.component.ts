@@ -9,7 +9,6 @@ import { UsuarioService } from '../../servicios/usuario.service';
 import { ProveedorDto } from '../../interface/proveedor-dto';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { UsuarioModel } from '../../interface/usuario-model';
 import { UsuarioDto } from '../../interface/usuario-dto';
 
 @Component({
@@ -21,7 +20,7 @@ import { UsuarioDto } from '../../interface/usuario-dto';
 })
 export class UsuariosComponent implements OnInit{
 
-  usuarios: UsuarioModel[] = [];
+  usuarios: UsuarioDto[] = [];
   @ViewChild("myModalConf", { static: false }) myModalConf!: TemplateRef<ProveedorDto>;
   modalTitle: string = "";
   modeloUsuario: UsuarioDto;
@@ -60,7 +59,7 @@ export class UsuariosComponent implements OnInit{
     this.modalTitle = 'Crear';
   }
 
-  modalEditar(usuario: UsuarioModel) {
+  modalEditar(usuario: UsuarioDto) {
     this.modeloUsuario = { ...usuario }; // Limpiar modelo
     this.modalService.open(this.myModalConf, { size: 'lg' });
     this.modalTitle = 'Editar';
