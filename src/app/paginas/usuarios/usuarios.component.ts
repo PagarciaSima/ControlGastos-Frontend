@@ -74,11 +74,11 @@ export class UsuariosComponent implements OnInit{
 
     if ("Crear" == this.modalTitle) {
       this.usuarioService.addUsuario(
-        { nombre: this.modeloUsuario.nombre, correo: this.modeloUsuario.correo, password: this.modeloUsuario.password }
+        { nombre: this.modeloUsuario.nombre.trim(), correo: this.modeloUsuario.correo.trim(), password: this.modeloUsuario.password.trim() }
         , this.authService.getToken()
       ).subscribe({
         next: (data) => {
-          this.comunService.mostrarExito('Proveedor creado con éxito').then(() => {
+          this.comunService.mostrarExito('Usuario creado con éxito').then(() => {
             this.getUsuarios();
             this.modalService.dismissAll();
             this.router.navigateByUrl('/usuarios');
@@ -88,7 +88,21 @@ export class UsuariosComponent implements OnInit{
         }
       });
     } else if ("Editar" == this.modalTitle) {
-     
+      this.usuarioService.editUsuario(
+        { nombre: this.modeloUsuario.nombre.trim(), correo: this.modeloUsuario.correo.trim(), password: this.modeloUsuario.password.trim() },
+        this.authService.getToken(),
+        this.modeloUsuario.id!
+      ).subscribe({
+        next: (data) => {
+          this.comunService.mostrarExito('Usuario actualizado con éxito').then(() => {
+            this.getUsuarios();
+            this.modalService.dismissAll();
+            this.router.navigateByUrl('/usuarios');
+          });
+        }, error: (error) => {
+          this.comunService.mostrarError('Ha ocurrido un error al actualizar el usuario: ' + error.message);
+        }
+      });
     }
   }
 }

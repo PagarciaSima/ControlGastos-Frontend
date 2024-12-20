@@ -25,4 +25,9 @@ export class UsuarioService {
     const headers = this._comunService.getHeaders(token);
     return this._httpClient.post<string>(`${environment.api}/v1/usuario`, usuario, { headers })
   }
+
+  editUsuario(usuario: UsuarioDto, token: string, id: number): Observable<string> {
+    const headers = this._comunService.getHeaders(token);
+    return this._httpClient.put<string>(`${environment.api}/v1/usuario/${id}`, usuario, { headers })
+  }
 }
