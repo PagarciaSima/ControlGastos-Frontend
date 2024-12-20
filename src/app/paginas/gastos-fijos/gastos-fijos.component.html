@@ -10,10 +10,14 @@
                         <li class="breadcrumb-item" aria-current="page">
                             <a routerLink="/">Home</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Gastos Fijos</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Gastos Fijos - <strong>{{getMesActual()}} de {{fecha | date: 'YYYY'}}</strong>
+                        </li>
                     </ol>
                 </nav>
-                <h3 class="h3 mb-3 mt-5 text-center"><i class="fas fa-list-alt me-2"></i>Gastos Fijos</h3>
+                <h3 class="h3 mb-3 mt-5 text-center"><i class="fas fa-list-alt me-2">                     
+                    </i>Gastos Fijos - <strong>{{getMesActual()}} de {{fecha | date: 'YYYY'}}</strong>
+                </h3>
                 <div class="row">
                     <div class="col-12 col-lg-12 d-flex">
                         <div class="card flex-fill">
