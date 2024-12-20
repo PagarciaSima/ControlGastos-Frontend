@@ -27,4 +27,9 @@ export class ProveedoresService {
     const headers = this.getHeaders(token);
     return this._httclient.post<ProveedorDto>(`${environment.api}/v1/proveedores`, proveedor, { headers });
   }
+
+  editProveedor(proveedor: {nombre: string}, token: string, id: number) {
+    const headers = this.getHeaders(token);
+    return this._httclient.put<ProveedorDto>(`${environment.api}/v1/proveedores/${id}`, proveedor, { headers });
+  }
 }

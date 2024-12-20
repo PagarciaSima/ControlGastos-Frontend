@@ -53,8 +53,15 @@ export class ProveedoresComponent implements OnInit {
   }
 
   modalCrear() {
+    this.modeloFormProveedor = { id: 0, nombre: '' }; // Limpiar el modelo
     this.modalService.open(this.myModalConf, { size: 'lg' });
     this.modalTitle = 'Crear'
+  }
+
+  modalEditar(proveedor: ProveedorDto) {
+    this.modalService.open(this.myModalConf, { size: 'lg' });
+    this.modalTitle = 'Editar'
+    this.modeloFormProveedor = { ...proveedor };
   }
 
   cerrar() {
@@ -62,17 +69,33 @@ export class ProveedoresComponent implements OnInit {
   }
 
   enviar() {
+    const nombreProveedor = this.modeloFormProveedor.nombre.trim(); // Eliminar espacios al principio y al final
+
     if ("Crear" == this.modalTitle) {
-      this.proveedoresService.addProveedor({ nombre: this.modeloFormProveedor.nombre }, this.authService.getToken()).subscribe({
+      this.proveedoresService.addProveedor({ nombre: nombreProveedor } , this.authService.getToken()).subscribe({
         next: (data) => {
-          this.comunService.mostrarExito('Proveedor creado con éxito');
-          this.router.navigate(['/proveedores']);
+          this.comunService.mostrarExito('Proveedor creado con éxito').then(() => {
+            this.getProveedores();
+            this.modalService.dismissAll(); 
+            this.router.navigateByUrl('/proveedores');
+          });
         }, error: (error) => {
           this.comunService.mostrarError('Ha ocurrido un error al crear el proveedor: ' + error.message);
         }
       });
     } else if ("Editar" == this.modalTitle) {
-
+      this.proveedoresService.editProveedor({nombre: nombreProveedor } , this.authService.getToken(), this.modeloFormProveedor.id).subscribe({
+        next: (data) => {
+          this.comunService.mostrarExito('Proveedor actualizado con éxito').then(() => {
+            this.getProveedores();
+            this.modalService.dismissAll(); 
+            this.router.navigateByUrl('/proveedores');
+          });
+        }, error: (error) => {
+          this.comunService.mostrarError('Ha ocurrido un error al actualizar el proveedor: ' + error.message);
+        }
+      });
     }
   }
+
 }

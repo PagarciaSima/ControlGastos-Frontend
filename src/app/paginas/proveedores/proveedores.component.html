@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item" aria-current="page">
                             <a routerLink="/">Home</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">proveedores</li>
+                        <li class="breadcrumb-item active" aria-current="page">Proveedores</li>
                     </ol>
                 </nav>
                 <h3 class="h3 mb-3 mt-5 text-center"><i class="fas fa-truck-moving me-2"></i>Proveedores</h3>
@@ -38,7 +38,7 @@
                                                     <td>{{proveedor.id}}</td>
                                                     <td>{{proveedor.nombre}}</td>
                                                     <td class="text-center">
-                                                        <a class="text-success">
+                                                        <a class="text-success" (click)="modalEditar(proveedor)">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
