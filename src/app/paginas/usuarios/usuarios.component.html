@@ -42,7 +42,7 @@
                                                     <td>{{usuario.correo}}</td>
                                                     <td>{{usuario.perfil}}</td>
                                                     <td class="text-center">
-                                                        <a (click)="modalEditar()" class="text-success" title="Editar">
+                                                        <a (click)="modalEditar(usuario)" class="text-success" title="Editar">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
@@ -62,3 +62,82 @@
         <app-footer></app-footer>
     </div>
 </div>
+
+<!-- modal -->
+<ng-template #myModalConf>
+    <div class="modal-content" style="background-color: #fff;">
+        <div class="modal-header mb-3">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"
+                (click)="cerrar()" title="cerrar"
+            >
+            </button>
+        </div>
+        <div class="modal-body">
+            <form name="form" id="form" (submit)="enviar()" #formulario="ngForm">
+                <div class="mb-3">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" [(ngModel)]="modeloUsuario.nombre" 
+                        #nombre="ngModel" required="true" placeholder="Introduzca su nombre"
+                    >
+                    @if(nombre.errors?.['required'] && (nombre.dirty || nombre.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo nombre es obligatorio
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="correo">E-Mail:</label>
+                    <input type="email" name="correo" class="form-control" [(ngModel)]="modeloUsuario.correo" 
+                        #correo="ngModel" required="true" placeholder="Introduzca su correo" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    >
+                    @if(correo.errors?.['required'] && (correo.dirty || correo.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo nombre es obligatorio
+                        </div>
+                    }
+
+                    @if(correo.errors?.['pattern'] && (correo.dirty || correo.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            Formato de correo incorrecto
+                        </div>
+                    }
+                    
+                </div>
+
+                <div class="mb-3">
+                    <label for="password">Password:</label>
+                    <input type="text" name="password" class="form-control" [(ngModel)]="modeloUsuario.password" 
+                        #password="ngModel" required="true" placeholder="Introduzca su password"
+                        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])(?=\S+$).{8,20}$"
+                    >
+                    @if(password.errors?.['required'] && (password.dirty || password.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo password es obligatorio
+                        </div>
+                    }
+
+                    @if(password.errors?.['pattern'] && (password.dirty || password.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            La contraseña debe contener al menos una letra, un número, un carácter especial, y tener entre 8 y 20 caracteres.
+                        </div>
+                    }
+        
+                </div>
+
+                <div class="mb-3 text-end">
+                    @if(modalTitle=="Crear") {
+                        <button type="submit" class="btn btn-primary" [disabled]="!formulario.form.valid">
+                            <i class="fas fa-arrow-up me-2"></i>Crear
+                        </button>
+                    }@else if (modalTitle == "Editar") {
+                        <button type="submit" class="btn btn-warning" [disabled]="!formulario.form.valid">
+                            <i class="fas fa-pencil me-2"></i>Editar
+                        </button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+ </ng-template>

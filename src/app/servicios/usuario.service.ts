@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComunService } from './comun.service';
 import { Observable } from 'rxjs';
-import { UsuarioDto } from '../interface/usuario-dto';
 import { environment } from '../../environments/environment.development';
+import { UsuarioModel } from '../interface/usuario-model';
+import { UsuarioDto } from '../interface/usuario-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,13 @@ export class UsuarioService {
     private _comunService: ComunService
   ) { }
 
-  getUsuarios(token: string): Observable<UsuarioDto[]> {
+  getUsuarios(token: string): Observable<UsuarioModel[]> {
     const headers = this._comunService.getHeaders(token);
-    return this._httpClient.get<UsuarioDto[]>(`${environment.api}/v1/usuarios`, { headers });
+    return this._httpClient.get<UsuarioModel[]>(`${environment.api}/v1/usuarios`, { headers });
   }
 
   addUsuario(usuario: UsuarioDto, token: string): Observable<string> {
     const headers = this._comunService.getHeaders(token);
-    return this._httpClient.post<string>(`${environment.api}/v1/usuarios`, usuario, { headers })
+    return this._httpClient.post<string>(`${environment.api}/v1/usuario`, usuario, { headers })
   }
 }
