@@ -21,7 +21,7 @@ import { UsuarioDto } from '../../interface/usuario-dto';
 export class UsuariosComponent implements OnInit{
 
   usuarios: UsuarioDto[] = [];
-  @ViewChild("myModalConf", { static: false }) myModalConf!: TemplateRef<ProveedorDto>;
+  @ViewChild("myModalConf", { static: false }) myModalConf!: TemplateRef<UsuarioDto>;
   modalTitle: string = "";
   modeloUsuario: UsuarioDto;
 

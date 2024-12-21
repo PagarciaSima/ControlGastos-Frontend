@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GastoFijoDto } from '../interface/gasto-fijo-dto';
 import { environment } from '../../environments/environment.development';
 import { ComunService } from './comun.service';
+import { GastoFijoModel } from '../interface/gasto-fijo-model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class GastoFijoService {
     private _comunService: ComunService
   ) { }
 
-  getGastosFijos(token: string): Observable<GastoFijoDto[]> {
+  getGastosFijos(token: string): Observable<GastoFijoModel[]> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.get<GastoFijoDto[]>(`${environment.api}/v1/gastos-fijos`, { headers });
+    return this._http.get<GastoFijoModel[]>(`${environment.api}/v1/gastos-fijos`, { headers });
   }
 
   addGastoFijo(gasto:GastoFijoDto, token: string): Observable<string> {
