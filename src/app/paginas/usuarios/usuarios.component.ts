@@ -6,7 +6,6 @@ import { MenuComponent } from '../../componentes/menu/menu.component';
 import { AuthService } from '../../servicios/auth.service';
 import { ComunService } from '../../servicios/comun.service';
 import { UsuarioService } from '../../servicios/usuario.service';
-import { ProveedorDto } from '../../interface/proveedor-dto';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { UsuarioDto } from '../../interface/usuario-dto';

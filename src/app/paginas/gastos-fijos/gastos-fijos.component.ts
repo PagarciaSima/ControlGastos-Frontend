@@ -16,6 +16,7 @@ import { ProveedoresService } from '../../servicios/proveedores.service';
 import { GastoFijoModel } from '../../interface/gasto-fijo-model';
 import { EstadosService } from '../../servicios/estados.service';
 import { EstadoDto } from '../../interface/estado-dto';
+import swal from 'sweetalert2'; // npm i sweetalert2
 
 @Component({
   selector: 'app-gastos-fijos',
@@ -69,7 +70,31 @@ export class GastosFijosComponent implements OnInit{
   }
 
   eliminar(id: number) {
-    
+    swal.fire({
+      position: 'top-end',
+      title: '¿Realmente desea eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'NO',
+      confirmButtonText: 'SI'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.gastoFijoService.deleteGastoFijo(this.authService.getToken(), id).subscribe({
+          next: () => {
+            this.comunService.mostrarExito('Existo al eliminar el registro');
+            this.getGastosFijos();
+            setTimeout(() => {
+              this.router.navigate(['/gastos-fijos']);
+            }, 2000);
+
+          }, error: (error) => {
+            this.comunService.mostrarError('Ha ocurrido un error al eliminar el registro: ' + error.message);
+          }
+        });
+      }
+    });
   }
 
   getGastosFijos() {
