@@ -35,6 +35,9 @@ export class GastosFijosComponent implements OnInit{
   modalTitle: string = "";
   modeloFormGasto: GastoFijoModel;
 
+  contPagado: number = 0;
+  contNoPagado: number = 0;
+
   constructor(
     private gastoFijoService: GastoFijoService,
     private authService: AuthService,
@@ -101,10 +104,24 @@ export class GastosFijosComponent implements OnInit{
     this.gastoFijoService.getGastosFijos(this.authService.getToken()).subscribe({
       next: (data) => {
         this.gastosFijos = data;
+        this.setPagadosYnoPagadosCounter(this.gastosFijos);
       }, error: (error) => {
         this.comunService.mostrarError('Ha ocurrido un error al recuperar el listado de gastos: ' + error.message);
       }
     });
+  }
+
+  setPagadosYnoPagadosCounter(gastosFijos: GastoFijoModel[]) {
+    this.contNoPagado = 0;
+    this.contNoPagado = 0;
+    for (let gasto of gastosFijos) {
+      if (gasto.estadosId!.id == 3) {  // pagado 
+        this.contPagado += gasto.monto;
+      } else if (gasto.estadosId!.id == 4) { // no pagado
+        this.contNoPagado += gasto.monto;
+      }
+     
+    }
   }
 
   getProveedores() {
