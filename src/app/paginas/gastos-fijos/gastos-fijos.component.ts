@@ -14,6 +14,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProveedorDto } from '../../interface/proveedor-dto';
 import { ProveedoresService } from '../../servicios/proveedores.service';
 import { GastoFijoModel } from '../../interface/gasto-fijo-model';
+import { EstadosService } from '../../servicios/estados.service';
+import { EstadoDto } from '../../interface/estado-dto';
 
 @Component({
   selector: 'app-gastos-fijos',
@@ -26,10 +28,11 @@ export class GastosFijosComponent implements OnInit{
   
   fecha!: Date;
   gastosFijos: GastoFijoModel[] = [];
+  estadosList: EstadoDto[] = [];
   proveedoresList: ProveedorDto[] = [];
   @ViewChild("myModalConf", { static: false }) myModalConf!: TemplateRef<GastoFijoDto>;
   modalTitle: string = "";
-  modeloFormGasto: GastoFijoDto;
+  modeloFormGasto: GastoFijoModel;
 
   constructor(
     private gastoFijoService: GastoFijoService,
@@ -37,27 +40,32 @@ export class GastosFijosComponent implements OnInit{
     private comunService: ComunService,
     private modalService: NgbModal,
     private proveedorService: ProveedoresService,
-    private router: Router
+    private router: Router,
+    private estadoService: EstadosService
   ) {
     this.fecha = new Date();
-    this.modeloFormGasto = { nombre: '', monto: 0, proveedoresId: 0, estadosId: 0};
+    this.modeloFormGasto = { nombre: '', monto: 0, proveedoresId: {id: 0, nombre: ""}};
   }
 
   ngOnInit(): void {
     this.getGastosFijos();
     this.getProveedores();
+    this.getEstados();
   }
 
   modalCrear() {
-    this.modeloFormGasto ={nombre: '', monto: 0, proveedoresId: 0, estadosId: 0}; // Limpiar el modelo
+    this.modeloFormGasto ={nombre: '', monto: 0, proveedoresId: {id: 0, nombre: ""}}; // Limpiar el modelo
     this.modalService.open(this.myModalConf, { size: 'lg' });
     this.modalTitle = 'Crear'
   }
 
-  modalEditar(gastoFijo: GastoFijoDto) {
+  modalEditar(gastoFijo: GastoFijoModel) {
     this.modalService.open(this.myModalConf, { size: 'lg' });
     this.modalTitle = 'Editar'
-    this.modeloFormGasto = { ...gastoFijo };
+    this.modeloFormGasto = {
+      id: gastoFijo.id, nombre: gastoFijo.nombre, monto: gastoFijo.monto,
+      proveedoresId: gastoFijo.proveedoresId, estadosId: gastoFijo.estadosId
+    };
   }
 
   eliminar(id: number) {
@@ -84,6 +92,16 @@ export class GastosFijosComponent implements OnInit{
     });
   }
 
+  getEstados() {
+    this.estadoService.getEstadosGastos(this.authService.getToken()).subscribe({
+      next: (data) => {
+        this.estadosList = data;
+      }, error: (error) => {
+        this.comunService.mostrarError('Ha ocurrido un error al recuperar el listado de estados: ' + error.message);
+      }
+    });
+  }
+
   getMesActual() {
     let date = new Date();
     dayjs.locale('es');
@@ -94,20 +112,11 @@ export class GastosFijosComponent implements OnInit{
     this.modalService.dismissAll();
   }
 
-  getDtoFromModel(gasto: GastoFijoModel): GastoFijoDto {
-    return {
-      nombre: gasto.nombre,
-      monto: gasto.monto,
-      proveedoresId: gasto.proveedoresId.id,
-      estadosId: gasto.estadosId.id
-    }
-  }
-
   enviar() {
     if ("Crear" == this.modalTitle) {
       this.gastoFijoService.addGastoFijo(
         {
-          nombre: this.modeloFormGasto.nombre, monto: this.modeloFormGasto.monto, proveedoresId: this.modeloFormGasto.proveedoresId
+          nombre: this.modeloFormGasto.nombre, monto: this.modeloFormGasto.monto, proveedoresId: this.modeloFormGasto.proveedoresId!.id
           , estadosId: 0
          }
         , this.authService.getToken()
@@ -123,7 +132,26 @@ export class GastosFijosComponent implements OnInit{
         }
       });
     } else if ("Editar" == this.modalTitle) {
-
+       this.gastoFijoService.editGastoFijo(
+         {
+          nombre: this.modeloFormGasto.nombre,
+          monto: this.modeloFormGasto.monto,
+          proveedoresId: this.modeloFormGasto.proveedoresId!.id,
+          estadosId: this.modeloFormGasto.estadosId!.id
+         }
+        , this.authService.getToken()
+        , this.modeloFormGasto.id!
+      ).subscribe({
+        next: (data) => {
+          this.comunService.mostrarExito('Registro de gasto fijo actualizado con éxito').then(() => {
+            this.getGastosFijos();
+            this.modalService.dismissAll(); 
+            this.router.navigateByUrl('/gastos-fijos');
+          });
+        }, error: (error) => {
+          this.comunService.mostrarError('Ha ocurrido un error al actualizar el registro de gasto fijo: ' + error.message);
+        }
+      }); 
     }
   }
 }

@@ -44,13 +44,13 @@
                                             @for(gasto of gastosFijos; track gasto.id) {
                                                 <tr>
                                                     <td>{{gasto.id}}</td>
-                                                    <td>{{gasto.estadosId.nombre}}</td>
+                                                    <td>{{gasto.estadosId?.nombre}}</td>
                                                     <td>{{gasto.nombre}}</td>
                                                     <td>{{gasto.monto | currency:'EUR'}}</td>
-                                                    <td>{{gasto.proveedoresId.nombre}}</td>
+                                                    <td>{{gasto.proveedoresId?.nombre}}</td>
                                                     <td>{{gasto.fecha | date: 'dd/MM/YYYY'}}</td>
                                                     <td class="text-center">
-                                                        <a (click)="modalEditar(getDtoFromModel(gasto))" class="text-success me-2" title="editar">
+                                                        <a (click)="modalEditar(gasto)" class="text-success me-2" title="editar">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         <a (click)="eliminar(gasto.id!)" class="text-danger" title="editar">
@@ -86,6 +86,27 @@
         </div>
         <div class="modal-body">
             <form name="form" id="form" (submit)="enviar()" #formulario="ngForm">
+
+                @if(modalTitle == "Editar") {
+                    <div class="mb-3">
+                        <label for="estadosId">Estado: </label>
+                        <select name="estadosId" id="estadosId" class="form-control"
+                            [(ngModel)]="modeloFormGasto.estadosId!.id" #estadosId="ngModel" required="true"
+                        >
+                           <option value="0">Seleccione un estado</option>
+            
+                           @for(estado of estadosList; track estado.id) {
+                            <option value="{{estado.id}}"> {{$index + 1 }} - {{estado.nombre}}</option>
+                           }
+                        </select>
+                        @if(estadosId.errors?.['required'] && (nombre.dirty || nombre.touched)) {
+                            <div class="alert alert-danger mt-2">
+                                Debe seleccionar un estado
+                            </div>
+                        }
+                    </div>
+                }
+
                 <div class="mb-3">
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" class="form-control" [(ngModel)]="modeloFormGasto.nombre" 
@@ -113,7 +134,7 @@
                 <div class="mb-3">
                     <label for="proveedoresId">Proovedor</label>
                     <select name="proveedoresId" id="proveedoresId" class="form-control"
-                        [(ngModel)]="modeloFormGasto.proveedoresId" #proveedoresId="ngModel" required="true"
+                        [(ngModel)]="modeloFormGasto.proveedoresId!.id" #proveedoresId="ngModel" required="true"
                     >
                        <option value="0">Seleccione un proveedor</option>
 

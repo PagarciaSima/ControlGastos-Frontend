@@ -1,10 +1,10 @@
 import { EstadoDto } from "./estado-dto";
 
 export interface GastoFijoModel {
-    id: number,
+    id?: number,
     nombre: string,
     monto: number,
-    proveedoresId: { id: 0, nombre: '' },
-    estadosId: EstadoDto,
-    fecha: Date  
+    proveedoresId?: { id: 0, nombre: '' },
+    estadosId?: EstadoDto,
+    fecha?: Date  
 }
