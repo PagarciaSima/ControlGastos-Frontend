@@ -41,8 +41,25 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                     
-                                          
+                                            @for(gasto of gastosPorDia; track gasto.id) {
+                                                <tr>
+                                                    <td>{{gasto.id}}</td>
+                                                    <td>{{gasto.neto | currency: 'EUR'}}</td>
+                                                    <td>{{gasto.iva / 100 | percent: '1.0-0'}}</td>
+                                                    <td>{{gasto.total | currency: 'EUR'}}</td>
+                                                    <td>{{gasto.proveedoresId.nombre}}</td>
+                                                    <td>{{gasto.fecha | date: 'dd/MM/YYYY'}}</td>
+                                                    <td>{{gasto.descripcion}}</td>
+                                                    <td class="text-center">
+                                                        <a (click)="modalEditar(gasto)" class="text-success me-2" title="editar">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a (click)="eliminar(gasto.id!)" class="text-danger" title="editar">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }        
                                         </tbody>
                                     </table>
                                 </div>

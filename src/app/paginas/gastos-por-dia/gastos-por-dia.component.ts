@@ -8,6 +8,10 @@ import { HeaderComponent } from '../../componentes/header/header.component';
 import dayjs from 'dayjs';
 import swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import { GastoDiaModel } from '../../interface/gasto-dia-model';
+import { GastoPorDiaService } from '../../servicios/gasto-por-dia.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { GastoDiaDto } from '../../interface/gasto-dia-dto';
 
 @Component({
   selector: 'app-gastos-por-dia',
@@ -18,19 +22,22 @@ import { CommonModule } from '@angular/common';
 })
 export class GastosPorDiaComponent implements OnInit{
 
-  public fecha!: Date;
-  public contPagado: number = 0;
-  public contNoPagado: number = 0;
+  fecha!: Date;
+  contPagado: number = 0;
+  contNoPagado: number = 0;
+  gastosPorDia: GastoDiaModel[] = [];
 
   constructor(
     private authService: AuthService,
     private comunService: ComunService,
-    private router: Router
+    private router: Router,
+    private gastoPorDiaService: GastoPorDiaService
   ) {
     this.fecha = new Date();
   }
 
   ngOnInit(): void {
+    this.getGastosPorDia();
   }
 
   getMesActual() {
@@ -39,16 +46,30 @@ export class GastosPorDiaComponent implements OnInit{
     return dayjs(date).format("MMMM");
   }
 
+  getGastosPorDia(): void {
+     this.gastoPorDiaService.getGastosPorDia(this.authService.getToken()).subscribe({
+      next: (data) => {
+        this.gastosPorDia = data;
+      }, error: (error) => {
+        this.comunService.mostrarError("Ha ocurrido un error al recuperar los gastos diarios del mes: " + error.error)
+      }
+    });
+  }
+
   modalCrear() {
 
   }
 
-  modalEditar() {
+  modalEditar( gasto:GastoDiaModel ) {
 
   }
 
   cerrar() {
 
+  }
+
+  eliminar(id: number) {
+    
   }
 
   enviar() {
