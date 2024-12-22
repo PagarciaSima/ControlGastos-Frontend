@@ -1,1 +1,60 @@
-<app-menu></app-menu>
+<div class="wrapper">
+    <app-menu></app-menu>
+
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" aria-current="page">
+                            <a routerLink="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Gastos por día - <strong>{{getMesActual()}} de {{fecha | date: 'YYYY'}}</strong></li>
+                    </ol>
+                </nav>
+                <h3 class="h3 mb-3 mt-5 text-center"><i class="fas fa-list-alt me-2"></i>Gastos por día - <strong>{{getMesActual()}} de {{fecha | date: 'YYYY'}}</strong></h3>
+                <div class="row">
+                    <div class="col-12 col-lg-12 d-flex">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <a class="btn btn-outline-primary float-end" title="crear" (click)="modalCrear()">
+                                    <i class="fas fa-check me-2"></i>Crear
+                                </a>
+                                <h5 class="card-title my-2">Pagado: {{contPagado | currency:'EUR'}}</h5>
+                                <h5 class="card-title mb-2">No Pagado: {{contNoPagado | currency:'EUR'}}</h5>
+                                <h5 class="card-title mb-0">Total (Pagado + No Pagado): <u>{{contPagado + contNoPagado | currency:'EUR'}}</u></h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead class="table-success">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Neto</th>
+                                                <th>IVA</th>
+                                                <th>Total</th>
+                                                <th>Proveedor</th>
+                                                <th>Fecha</th>
+                                                <th>Descripción</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                     
+                                          
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <app-footer></app-footer>
+    </div>
+</div>
+
+

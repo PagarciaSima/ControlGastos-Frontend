@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import { FooterComponent } from '../../componentes/footer/footer.component';
 import { HeaderComponent } from '../../componentes/header/header.component';
 import { MenuComponent } from "../../componentes/menu/menu.component";
-import { GastoFijoDto } from '../../interface/gasto-fijo-dto';
 import { AuthService } from '../../servicios/auth.service';
 import { ComunService } from '../../servicios/comun.service';
 import { GastoFijoService } from '../../servicios/gasto-fijo.service';
@@ -31,7 +30,7 @@ export class GastosFijosComponent implements OnInit{
   gastosFijos: GastoFijoModel[] = [];
   estadosList: EstadoDto[] = [];
   proveedoresList: ProveedorDto[] = [];
-  @ViewChild("myModalConf", { static: false }) myModalConf!: TemplateRef<GastoFijoDto>;
+  @ViewChild("myModalConf", { static: false }) myModalConf!: TemplateRef<GastoFijoModel>;
   modalTitle: string = "";
   modeloFormGasto: GastoFijoModel;
 
