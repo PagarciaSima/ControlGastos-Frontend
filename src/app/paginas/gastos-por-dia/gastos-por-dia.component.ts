@@ -95,8 +95,14 @@ export class GastosPorDiaComponent implements OnInit{
     this.modalTitle = 'Crear'
   }
 
-  modalEditar( gasto:GastoDiaModel ) {
-
+  modalEditar( gasto: GastoDiaModel ) {
+    this.modalService.open(this.myModalConf, { size: 'lg' });
+    this.modalTitle = 'Editar'
+    this.modeloFormGasto = {
+      id: gasto.id, neto: gasto.neto, iva: gasto.iva,
+      total: gasto.total, descripcion: gasto.descripcion,
+      proveedoresId: gasto.proveedoresId
+    };
   }
 
   cerrar() {
@@ -126,6 +132,26 @@ export class GastosPorDiaComponent implements OnInit{
           this.comunService.mostrarError('Ha ocurrido un error al registrar el gasto diario: ' + error.message);
         }
       });
-    } 
+    } else if ("Editar" == this.modalTitle) {
+      this.gastoPorDiaService.editGastoPorDia(
+        {
+          neto: this.modeloFormGasto.neto!, iva: this.modeloFormGasto.iva!,
+          total: this.modeloFormGasto.total!, descripcion: this.modeloFormGasto.descripcion,
+          proveedoresId: this.modeloFormGasto.proveedoresId!.id
+        }
+       , this.authService.getToken()
+       , this.modeloFormGasto.id!
+     ).subscribe({
+       next: (data) => {
+         this.comunService.mostrarExito('Registro de gasto diario actualizado con éxito').then(() => {
+           this.getGastosPorDia();
+           this.modalService.dismissAll(); 
+           this.router.navigateByUrl('/gastos-por-dia');
+         });
+       }, error: (error) => {
+         this.comunService.mostrarError('Ha ocurrido un error al actualizar el registro de gasto diario: ' + error.message);
+       }
+     }); 
+   }
   }
 }

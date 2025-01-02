@@ -28,7 +28,7 @@ export class GastoPorDiaService {
 
   editGastoPorDia(gasto: GastoDiaDto, token: string, id:number): Observable<string> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.post<string>(`${environment.api}/v1/gastos-por-dia/${id}`, gasto, { headers })
+    return this._http.put<string>(`${environment.api}/v1/gastos-por-dia/${id}`, gasto, { headers })
   }
 
   deleteGastoPorDia(token: string, id:number): Observable<string> {

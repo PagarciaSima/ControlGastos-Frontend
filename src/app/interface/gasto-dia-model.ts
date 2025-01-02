@@ -6,7 +6,7 @@ export interface GastoDiaModel {
     neto?: number,
     iva?: number,
     total?: number,
-    fecha: Date,
+    fecha?: Date,
     descripcion: string ,
     proveedoresId?: { id: 0, nombre: '' },
     
