@@ -110,7 +110,31 @@ export class GastosPorDiaComponent implements OnInit{
   }
 
   eliminar(id: number) {
-
+    swal.fire({
+          position: 'center',
+          title: '¿Realmente desea eliminar este registro?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'NO',
+          confirmButtonText: 'SI'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.gastoPorDiaService.deleteGastoPorDia(this.authService.getToken(), id).subscribe({
+              next: () => {
+                this.comunService.mostrarExito('Existo al eliminar el registro');
+                this.getGastosPorDia();
+                setTimeout(() => {
+                  this.router.navigate(['/gastos-por-dia']);
+                }, 2000);
+    
+              }, error: (error) => {
+                this.comunService.mostrarError('Ha ocurrido un error al eliminar el registro: ' + error.message);
+              }
+            });
+          }
+        });
   }
 
   enviar() {
