@@ -21,9 +21,7 @@
                                 <a class="btn btn-outline-primary float-end" title="crear" (click)="modalCrear()">
                                     <i class="fas fa-check me-2"></i>Crear
                                 </a>
-                                <h5 class="card-title my-2">Pagado: {{contPagado | currency:'EUR'}}</h5>
-                                <h5 class="card-title mb-2">No Pagado: {{contNoPagado | currency:'EUR'}}</h5>
-                                <h5 class="card-title mb-0">Total (Pagado + No Pagado): <u>{{contPagado + contNoPagado | currency:'EUR'}}</u></h5>
+                                <h5 class="card-title my-2">Total: <u>{{total | currency:'EUR'}}</u></h5>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

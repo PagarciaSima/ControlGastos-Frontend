@@ -27,8 +27,7 @@ import { ProveedorDto } from '../../interface/proveedor-dto';
 export class GastosPorDiaComponent implements OnInit{
 
   fecha!: Date;
-  contPagado: number = 0;
-  contNoPagado: number = 0;
+  total: number = 0;
   gastosPorDia: GastoDiaModel[] = [];
   proveedores: ProveedorDto[] = [];
   @ViewChild("myModalConf", { static: false }) myModalConf!: TemplateRef<GastoDiaModel>;
@@ -63,7 +62,7 @@ export class GastosPorDiaComponent implements OnInit{
     dayjs.locale('es');
     return dayjs(date).format("MMMM");
   }
-
+  
   getProveedores() {
     this.proveedorService.getProveedores(this.authService.getToken()).subscribe({
       next: (data) => {
@@ -77,7 +76,10 @@ export class GastosPorDiaComponent implements OnInit{
   getGastosPorDia(): void {
      this.gastoPorDiaService.getGastosPorDia(this.authService.getToken()).subscribe({
       next: (data) => {
-        this.gastosPorDia = data;
+         this.gastosPorDia = data;
+         for (let gasto of this.gastosPorDia) {
+           this.total += gasto.total ?? 0;
+         }
       }, error: (error) => {
         this.comunService.mostrarError("Ha ocurrido un error al recuperar los gastos diarios del mes: " + error.error)
       }
