@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginResponseDto } from '../interface/login-response-dto';
-import { environment } from '../../environments/environment.development';
-import { LoginRequestDto } from '../interface/login-request-dto';
+import { LoginResponseDto } from '../../interface/login-response-dto';
+import { environment } from '../../../environments/environment.development';
+import { LoginRequestDto } from '../../interface/login-request-dto';
 
 @Injectable({
   providedIn: 'root'

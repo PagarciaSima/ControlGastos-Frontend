@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginRequestDto } from '../../interface/login-request-dto';
-import { TokenService } from '../../servicios/token.service';
+import { TokenService } from '../../servicios/tokenService/token.service';
 import { CookieService } from 'ngx-cookie-service'; // npm i ngx-cookie-service
 import { LoginResponseDto } from '../../interface/login-response-dto';
 import { Router } from '@angular/router';
-import { ComunService } from '../../servicios/comun.service';
+import { ComunService } from '../../servicios/comunService/comun.service';
 
 @Component({
   selector: 'app-login',

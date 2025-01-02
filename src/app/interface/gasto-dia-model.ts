@@ -2,12 +2,12 @@ import { ProveedorDto } from "./proveedor-dto";
 
 export interface GastoDiaModel {
     
-    id: number,
-    neto: number,
-    iva: number,
-    total: number,
+    id?: number,
+    neto?: number,
+    iva?: number,
+    total?: number,
     fecha: Date,
-    descripcion: string,
-    proveedoresId: ProveedorDto   
+    descripcion: string ,
+    proveedoresId?: { id: 0, nombre: '' },
     
 }

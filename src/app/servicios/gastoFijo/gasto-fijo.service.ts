@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GastoFijoDto } from '../interface/gasto-fijo-dto';
-import { environment } from '../../environments/environment.development';
-import { ComunService } from './comun.service';
-import { GastoFijoModel } from '../interface/gasto-fijo-model';
+import { GastoFijoDto } from '../../interface/gasto-fijo-dto';
+import { environment } from '../../../environments/environment.development';
+import { ComunService } from '../comunService/comun.service';
+import { GastoFijoModel } from '../../interface/gasto-fijo-model';
 
 @Injectable({
   providedIn: 'root'

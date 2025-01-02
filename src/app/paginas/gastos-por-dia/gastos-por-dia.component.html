@@ -45,9 +45,9 @@
                                                 <tr>
                                                     <td>{{gasto.id}}</td>
                                                     <td>{{gasto.neto | currency: 'EUR'}}</td>
-                                                    <td>{{gasto.iva / 100 | percent: '1.0-0'}}</td>
+                                                    <td>{{gasto.iva! / 100 | percent: '1.0-0'}}</td>
                                                     <td>{{gasto.total | currency: 'EUR'}}</td>
-                                                    <td>{{gasto.proveedoresId.nombre}}</td>
+                                                    <td>{{gasto.proveedoresId!.nombre}}</td>
                                                     <td>{{gasto.fecha | date: 'dd/MM/YYYY'}}</td>
                                                     <td>{{gasto.descripcion}}</td>
                                                     <td class="text-center">
@@ -61,6 +61,7 @@
                                                 </tr>
                                             }        
                                         </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
@@ -73,5 +74,107 @@
         <app-footer></app-footer>
     </div>
 </div>
+
+<!-- modal -->
+<ng-template #myModalConf>
+    <div class="modal-content" style="background-color: #fff;">
+        <div class="modal-header mb-3">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"
+                (click)="cerrar()" title="cerrar"
+            >
+            </button>
+        </div>
+        <div class="modal-body">
+            <form name="form" id="form" (ngSubmit)="enviar()" #formulario="ngForm">
+
+                <div class="mb-3">
+                    <label for="proveedoresId">Proovedor: </label>
+                    <select name="proveedoresId" id="proveedoresId" class="form-control" 
+                        [(ngModel)]="modeloFormGasto.proveedoresId!.id" #proveedoresId="ngModel" required="true"
+                    >
+                       <option value="0" selected>Seleccione un proveedor</option>
+
+                       @for(proveedor of proveedores; track proveedor.id) {
+                        <option value="{{proveedor.id}}"> {{$index + 1 }} - {{proveedor.nombre}}</option>
+                       }
+                    </select>
+                    @if(proveedoresId.value == 0 && (proveedoresId.dirty || proveedoresId.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            Debe seleccionar un proveedor
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="neto">Neto: </label>
+                    <input type="number" name="neto" class="form-control" [(ngModel)]="modeloFormGasto.neto" 
+                        #neto="ngModel" required="true" placeholder="Introduzca su el valor neto"
+                    >
+                    @if(neto.errors?.['required'] && (neto.dirty || neto.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo neto es obligatorio. El campo neto solo admite números.
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="iva">IVA: </label>
+                    <input type="number" name="iva" class="form-control" [(ngModel)]="modeloFormGasto.iva" 
+                        #iva="ngModel" required="true" min="0" step="1" placeholder="Introduzca el iva"
+                    >
+                    @if(iva.errors?.['required'] && (iva.dirty || iva.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo iva es obligatorio. El campo iva solo admite números.
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="total">Total: </label>
+                    <input type="number" name="total" class="form-control" [(ngModel)]="modeloFormGasto.total" 
+                        #total="ngModel" required="true" min="0" step="1" placeholder="Introduzca el total"
+                    >
+                    @if(total.errors?.['required'] && (total.dirty || total.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo total es obligatorio. El campo total solo admite números.
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion">Descripcion: </label>
+                    <input type="text" name="descripcion" class="form-control" [(ngModel)]="modeloFormGasto.descripcion" 
+                        #descripcion="ngModel" required="true"  placeholder="Introduzca la descripción"
+                    >
+                    @if(descripcion.errors?.['required'] && (descripcion.dirty || descripcion.touched)) {
+                        <div class="alert alert-danger mt-2">
+                            El campo descripcion es obligatorio.
+                        </div>
+                    }
+                </div>
+
+                <hr/>
+                <div class="mb-3 text-end">
+                    @if(modalTitle=="Crear") {
+                        <button type="submit" class="btn btn-primary" [disabled]="!formulario.form.valid 
+                            || formulario.form.controls['proveedoresId'].value == 0"
+                        >
+                            <i class="fas fa-arrow-up me-2"></i>Crear
+                        </button>
+                    }@else if (modalTitle == "Editar") {
+                        <button type="submit" class="btn btn-warning" [disabled]="!formulario.form.valid">
+                            <i class="fas fa-pencil me-2"></i>Editar
+                        </button>
+                    }
+                </div>
+
+            </form>
+        </div>
+    </div>
+ </ng-template>
+
+
+
 
 

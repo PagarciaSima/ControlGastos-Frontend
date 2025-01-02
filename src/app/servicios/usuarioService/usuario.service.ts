@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ComunService } from './comun.service';
+import { ComunService } from '../comunService/comun.service';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
-import { UsuarioDto } from '../interface/usuario-dto';
+import { environment } from '../../../environments/environment.development';
+import { UsuarioDto } from '../../interface/usuario-dto';
 
 @Injectable({
   providedIn: 'root'

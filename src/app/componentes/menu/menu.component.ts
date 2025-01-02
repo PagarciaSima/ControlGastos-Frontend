@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../servicios/auth.service';
+import { AuthService } from '../../servicios/authService/auth.service';
 
 @Component({
   selector: 'app-menu',

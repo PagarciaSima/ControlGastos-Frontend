@@ -112,7 +112,7 @@
                 }
 
                 <div class="mb-3">
-                    <label for="nombre">Nombre</label>
+                    <label for="nombre">Nombre: </label>
                     <input type="text" name="nombre" class="form-control" [(ngModel)]="modeloFormGasto.nombre" 
                         #nombre="ngModel" required="true" placeholder="Introduzca su nombre"
                     >
@@ -124,11 +124,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="monto">Monto</label>
+                    <label for="monto">Monto: </label>
                     <input type="number" name="monto" class="form-control" [(ngModel)]="modeloFormGasto.monto" 
                         #monto="ngModel" required="true" min="0" step="1" placeholder="Introduzca el monto"
                     >
-                    @if(monto.errors?.['required'] && (nombre.dirty || nombre.touched)) {
+                    @if(monto.errors?.['required'] && (monto.dirty || monto.touched)) {
                         <div class="alert alert-danger mt-2">
                             El campo monto es obligatorio. El campo monto solo admite números.
                         </div>
@@ -136,7 +136,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="proveedoresId">Proovedor</label>
+                    <label for="proveedoresId">Proovedor: </label>
                     <select name="proveedoresId" id="proveedoresId" class="form-control"
                         [(ngModel)]="modeloFormGasto.proveedoresId!.id" #proveedoresId="ngModel" required="true"
                     >
@@ -146,20 +146,25 @@
                         <option value="{{proveedor.id}}"> {{$index + 1 }} - {{proveedor.nombre}}</option>
                        }
                     </select>
-                    @if(proveedoresId.errors?.['required'] && (nombre.dirty || nombre.touched)) {
+                    @if(proveedoresId.errors?.['required'] && (proveedoresId.dirty || proveedoresId.touched)) {
                         <div class="alert alert-danger mt-2">
                             Debe seleccionar un proveedor
                         </div>
                     }
                 </div>
 
+                <hr/>
                 <div class="mb-3 text-end">
                     @if(modalTitle=="Crear") {
-                        <button type="submit" class="btn btn-primary" [disabled]="!formulario.form.valid">
+                        <button type="submit" class="btn btn-primary" [disabled]="!formulario.form.valid
+                            || formulario.form.controls['proveedoresId'].value == 0"                     
+                        >
                             <i class="fas fa-arrow-up me-2"></i>Crear
                         </button>
                     }@else if (modalTitle == "Editar") {
-                        <button type="submit" class="btn btn-warning" [disabled]="!formulario.form.valid">
+                        <button type="submit" class="btn btn-warning" [disabled]="!formulario.form.valid
+                            || formulario.form.controls['proveedoresId'].value == 0"
+                        >
                             <i class="fas fa-pencil me-2"></i>Editar
                         </button>
                     }

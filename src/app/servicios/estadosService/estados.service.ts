@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EstadoDto } from '../interface/estado-dto';
-import { environment } from '../../environments/environment.development';
-import { ComunService } from './comun.service';
+import { environment } from '../../../environments/environment.development';
+import { EstadoDto } from '../../interface/estado-dto';
+import { ComunService } from '../comunService/comun.service';
+
 
 @Injectable({
   providedIn: 'root'

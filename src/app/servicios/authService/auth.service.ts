@@ -20,7 +20,7 @@ export class AuthService {
 
   cerrarSesion() {
     swal.fire({
-      position: 'top-end',
+      position: 'center',
       title: '¿Realmente desea cerrar la sesión?',
       icon: 'warning',
       showCancelButton: true,

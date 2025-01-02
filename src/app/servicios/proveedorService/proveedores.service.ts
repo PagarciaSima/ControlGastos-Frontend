@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProveedorDto } from '../interface/proveedor-dto';
-import { environment } from '../../environments/environment.development';
-import { ComunService } from './comun.service';
+import { environment } from '../../../environments/environment.development';
+import { ProveedorDto } from '../../interface/proveedor-dto';
+import { ComunService } from '../comunService/comun.service';
 
 @Injectable({
   providedIn: 'root'

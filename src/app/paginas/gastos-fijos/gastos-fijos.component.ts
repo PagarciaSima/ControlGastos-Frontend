@@ -6,14 +6,14 @@ import dayjs from 'dayjs';
 import { FooterComponent } from '../../componentes/footer/footer.component';
 import { HeaderComponent } from '../../componentes/header/header.component';
 import { MenuComponent } from "../../componentes/menu/menu.component";
-import { AuthService } from '../../servicios/auth.service';
-import { ComunService } from '../../servicios/comun.service';
-import { GastoFijoService } from '../../servicios/gasto-fijo.service';
+import { AuthService } from '../../servicios/authService/auth.service';
+import { ComunService } from '../../servicios/comunService/comun.service';
+import { GastoFijoService } from '../../servicios/gastoFijo/gasto-fijo.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProveedorDto } from '../../interface/proveedor-dto';
-import { ProveedoresService } from '../../servicios/proveedores.service';
+import { ProveedoresService } from '../../servicios/proveedorService/proveedores.service';
 import { GastoFijoModel } from '../../interface/gasto-fijo-model';
-import { EstadosService } from '../../servicios/estados.service';
+import { EstadosService } from '../../servicios/estadosService/estados.service';
 import { EstadoDto } from '../../interface/estado-dto';
 import swal from 'sweetalert2'; // npm i sweetalert2
 
@@ -57,7 +57,7 @@ export class GastosFijosComponent implements OnInit{
   }
 
   modalCrear() {
-    this.modeloFormGasto ={nombre: '', monto: 0, proveedoresId: {id: 0, nombre: ""}}; // Limpiar el modelo
+    this.modeloFormGasto ={nombre: '', monto: undefined, proveedoresId: {id: 0, nombre: ""}}; // Limpiar el modelo
     this.modalService.open(this.myModalConf, { size: 'lg' });
     this.modalTitle = 'Crear'
   }
@@ -73,7 +73,7 @@ export class GastosFijosComponent implements OnInit{
 
   eliminar(id: number) {
     swal.fire({
-      position: 'top-end',
+      position: 'center',
       title: '¿Realmente desea eliminar este registro?',
       icon: 'warning',
       showCancelButton: true,
@@ -114,9 +114,9 @@ export class GastosFijosComponent implements OnInit{
     this.contNoPagado = 0;
     this.contNoPagado = 0;
     for (let gasto of gastosFijos) {
-      if (gasto.estadosId!.id == 3) {  // pagado 
+      if (gasto.estadosId!.id == 3 && gasto.monto != undefined ) {  // pagado 
         this.contPagado += gasto.monto;
-      } else if (gasto.estadosId!.id == 4) { // no pagado
+      } else if (gasto.estadosId!.id == 4 && gasto.monto != undefined) { // no pagado
         this.contNoPagado += gasto.monto;
       }
      
@@ -157,7 +157,7 @@ export class GastosFijosComponent implements OnInit{
     if ("Crear" == this.modalTitle) {
       this.gastoFijoService.addGastoFijo(
         {
-          nombre: this.modeloFormGasto.nombre, monto: this.modeloFormGasto.monto, proveedoresId: this.modeloFormGasto.proveedoresId!.id
+          nombre: this.modeloFormGasto.nombre, monto: this.modeloFormGasto.monto!, proveedoresId: this.modeloFormGasto.proveedoresId!.id
           , estadosId: 0
          }
         , this.authService.getToken()
@@ -176,7 +176,7 @@ export class GastosFijosComponent implements OnInit{
        this.gastoFijoService.editGastoFijo(
          {
           nombre: this.modeloFormGasto.nombre,
-          monto: this.modeloFormGasto.monto,
+          monto: this.modeloFormGasto.monto!,
           proveedoresId: this.modeloFormGasto.proveedoresId!.id,
           estadosId: this.modeloFormGasto.estadosId!.id
          }

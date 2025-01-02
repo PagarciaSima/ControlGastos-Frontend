@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ComunService } from './comun.service';
+import { ComunService } from '../comunService/comun.service';
 import { HttpClient } from '@angular/common/http';
-import { GastoDiaModel } from '../interface/gasto-dia-model';
+import { GastoDiaModel } from '../../interface/gasto-dia-model';
 import { Observable } from 'rxjs/internal/Observable';
-import { environment } from '../../environments/environment.development';
-import { GastoDiaDto } from '../interface/gasto-dia-dto';
+import { environment } from '../../../environments/environment.development';
+import { GastoDiaDto } from '../../interface/gasto-dia-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,12 @@ export class GastoPorDiaService {
 
   addGastoPorDia(gasto: GastoDiaDto, token: string): Observable<string> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.post<string>(`${environment.api}/v1/gastos-por-dia`, { headers })
+    return this._http.post<string>(`${environment.api}/v1/gastos-por-dia`, gasto, { headers })
   }
 
   editGastoPorDia(gasto: GastoDiaDto, token: string, id:number): Observable<string> {
     const headers = this._comunService.getHeaders(token);
-    return this._http.post<string>(`${environment.api}/v1/gastos-por-dia/${id}`, { headers })
+    return this._http.post<string>(`${environment.api}/v1/gastos-por-dia/${id}`, gasto, { headers })
   }
 
   deleteGastoPorDia(token: string, id:number): Observable<string> {

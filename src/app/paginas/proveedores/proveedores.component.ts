@@ -4,9 +4,9 @@ import { HeaderComponent } from '../../componentes/header/header.component';
 import { FooterComponent } from '../../componentes/footer/footer.component';
 import { Router, RouterModule } from '@angular/router';
 import { ProveedorDto } from '../../interface/proveedor-dto';
-import { ProveedoresService } from '../../servicios/proveedores.service';
-import { AuthService } from '../../servicios/auth.service';
-import { ComunService } from '../../servicios/comun.service';
+import { ProveedoresService } from '../../servicios/proveedorService/proveedores.service';
+import { AuthService } from '../../servicios/authService/auth.service';
+import { ComunService } from '../../servicios/comunService/comun.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // npm install @ng-bootstrap/ng-bootstrap
 import { FormsModule } from '@angular/forms';
 

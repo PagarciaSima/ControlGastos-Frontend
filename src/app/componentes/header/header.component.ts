@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
 import "dayjs/locale/es"
-import { AuthService } from '../../servicios/auth.service';
+import { AuthService } from '../../servicios/authService/auth.service';
 
 @Component({
   selector: 'app-header',
