@@ -1,19 +1,82 @@
 <div class="wrapper">
     <app-menu></app-menu>
-
     <div class="main">
-        <app-header></app-header>
-        <main class="content">
-            <div class="container-fluid p-0">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Home</li>
-                    </ol>
-                </nav>
-                <h1 class="text-center">Control de Gastos</h1>
-            </div>
-        </main>
+     <app-header></app-header>
+    <!--contenido-->
+    <main class="content">
+        <div class="container-fluid p-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-3">Peligro Gastos | mes {{getMesActual()}} del año {{fecha | date:'YYYY'}} </h1>
+            <div class="row">
+                <div class="col-xl-12 col-xxl-12 d-flex">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Gastos por día</h5>
+                                            </div>
 
-        <app-footer></app-footer>
+                                            <div class="col-auto">
+                                                <div class="stat ">
+                                                    <img src="/assets/img/presupuesto.png" alt="Gastos por día"
+                                                style="width: 100px; height: 25px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="mt-1 mb-3">{{gastosPorDiaTotal | currency:'EUR'}}</h1>
+                                        <div class="mb-0">
+                                            <a routerLink="/gastos-por-dia" title="Gastos por día">
+                                                <span class=""> <i class="fas fa-long-arrow-alt-right"></i> Ver detalle</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Gastos fijos</h5>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <div class="stat ">
+                                                    <img src="/assets/img/fijo.png" alt="Gastos por día"
+                                                style="width: 100px; height: 25px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="mt-1 mb-3">{{gastosFijosTotal | currency:'EUR'}}</h1>
+                                        <div class="mb-0">
+                                            <a routerLink="/gastos-fijos" title="Gastos fijos">
+                                                <span class=""> <i class="fas fa-long-arrow-alt-right"></i> Ver detalle</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </main>
+    <!--contenido-->
+     
+     <app-footer></app-footer>
     </div>
-</div>
+  </div>
+  
+  
